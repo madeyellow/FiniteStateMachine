@@ -152,7 +152,7 @@ public class MyState : MyFiniteStateMachineStateBase
 }
 ```
 
-### FSM event change event
+### FSM state change event
 
 Each time your FSM changes its state it invokes an *OnCurrentStateChanged* UnityEvent. This may be useful if you want to perform some action on a change of state for some reason.
 
