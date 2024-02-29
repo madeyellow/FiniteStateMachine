@@ -111,10 +111,6 @@ public override void CheckTransitions()
 }
 ```
 
-## Tips & tricks
-
-This package also includes some features you may find useful.
-
 ### Current & previous states of FSM
 
 If you want to know which state your FSM is now or was in before you may use the *CurrentState* and the *PreviousState* properties of your FSM:
