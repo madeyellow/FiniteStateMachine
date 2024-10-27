@@ -47,10 +47,14 @@ namespace MadeYellow.FSM
         /// </summary>
         public readonly UnityEvent OnEnteredState;
 
+        UnityEvent IState.OnEnteredState => OnEnteredState;
+
         /// <summary>
         /// Triggers after <see cref="StateExitingHook"/> when <see cref="ExitState"/> called
         /// </summary>
         public readonly UnityEvent OnExitedState;
+
+        UnityEvent IState.OnExitedState => OnExitedState;
         #endregion
 
         public StateBase(IState parent = null)

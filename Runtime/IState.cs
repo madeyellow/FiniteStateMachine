@@ -1,3 +1,5 @@
+using UnityEngine.Events;
+
 namespace MadeYellow.FSM
 {
     public interface IState
@@ -5,6 +7,8 @@ namespace MadeYellow.FSM
         IState Parent { get; }
 
         IState CurrentChild { get; }
+
+        float ExecutionDuration { get; }
 
         void CheckTransitions();
 
@@ -15,5 +19,9 @@ namespace MadeYellow.FSM
         void ExitState();
 
         void ChangeCurrentChild(IState state);
+
+        UnityEvent OnEnteredState { get; }
+
+        UnityEvent OnExitedState { get; }
     }
 }
