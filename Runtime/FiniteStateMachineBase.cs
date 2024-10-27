@@ -6,13 +6,13 @@ namespace MadeYellow.FSM
     /// <summary>
     /// Abstract finite state machine (FSM) with basic state management.
     /// </summary>
-    public abstract class FiniteStateMachineBase<TState> where TState : StateBase
+    public abstract class FiniteStateMachineBase<TState> where TState : StateBase, IState
     {
         [SerializeField]
         private FiniteStateMachineConfig _config;
 
-        public TState<TState> CurrentState { get; private set; }
-        public TState<TState> PreviousState { get; private set; }
+        public TState CurrentState { get; private set; }
+        public TState PreviousState { get; private set; }
 
         #region Events
         /// <summary>
@@ -32,7 +32,7 @@ namespace MadeYellow.FSM
         /// Switches <see cref="CurrentState"/> to a provided one
         /// </summary>
         /// <param name="newState"></param>
-        public void ChangeState(TState newState)
+        public void ChangeState(IState newState)
         {
             if (newState == null)
             {
