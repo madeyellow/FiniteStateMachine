@@ -15,10 +15,7 @@ namespace MadeYellow.FSM
         /// </summary>
         public readonly StateBase Parent;
 
-        /// <summary>
-        /// Sub-states of this state
-        /// </summary>
-        public virtual IEnumerable<StateBase> Children => Enumerable.Empty<StateBase>();
+        public bool HasParent => Parent != null;
 
         /// <summary>
         /// Default sub-state to pick as the current
@@ -29,6 +26,8 @@ namespace MadeYellow.FSM
         /// Determines the sub-state to auto transition to
         /// </summary>
         public StateBase CurrentChild { get; private set; }
+
+        public bool HasChildState => CurrentChild != null;
 
         /// <summary>
         /// Determines if this state is executing or not
@@ -69,7 +68,7 @@ namespace MadeYellow.FSM
         public virtual void CheckTransitions()
         {
             // If this state has parent - default behaviour is to use it's CheckTransitions
-            if (Parent != null)
+            if (HasParent)
             {
                 Parent.CheckTransitions();
             }    

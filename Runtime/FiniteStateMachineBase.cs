@@ -65,6 +65,12 @@ namespace MadeYellow.FSM
             {
                 OnCurrentStateChanged.Invoke();
             }
+
+            // Auto-transition to sub-state
+            if (CurrentState.HasChildState)
+            {
+                ChangeState(CurrentState.CurrentChild);
+            }
         }
 
         /// <summary>
