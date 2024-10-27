@@ -61,7 +61,8 @@ namespace MadeYellow.FSM
         {
             Parent = parent;
 
-            ChangeCurrentChild(DefaultChild);
+            if (DefaultChild != null)
+                ChangeCurrentChild(DefaultChild);
 
             OnEnteredState = new UnityEvent();
             OnExitedState = new UnityEvent();
@@ -77,7 +78,7 @@ namespace MadeYellow.FSM
             if (HasParent)
             {
                 Parent.CheckTransitions();
-            }    
+            }
         }
 
         /// <summary>
