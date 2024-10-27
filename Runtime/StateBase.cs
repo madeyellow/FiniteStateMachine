@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine.Events;
@@ -18,6 +19,16 @@ namespace MadeYellow.FSM
         /// Sub-states of this state
         /// </summary>
         public virtual IEnumerable<StateBase> Children => Enumerable.Empty<StateBase>();
+
+        /// <summary>
+        /// Default sub-state to pick as the current
+        /// </summary>
+        public virtual StateBase DefaultChild { get; }
+
+        /// <summary>
+        /// Determines the sub-state to auto transition to
+        /// </summary>
+        public StateBase CurrentChild { get; private set; }
 
         /// <summary>
         /// Determines if this state is executing or not
@@ -44,6 +55,8 @@ namespace MadeYellow.FSM
         public StateBase(StateBase parent)
         {
             Parent = parent;
+
+            ChangeCurrentChild(DefaultChild);
 
             OnEnteredState = new UnityEvent();
             OnExitedState = new UnityEvent();
@@ -112,6 +125,22 @@ namespace MadeYellow.FSM
             OnExitedState.Invoke();
         }
 
+        public void ChangeCurrentChild(StateBase state)
+        {
+            if (state is null)
+            {
+                throw new ArgumentNullException(nameof(state));
+            }
+
+            if (state.Parent != this)
+            {
+                throw new ArgumentException(nameof("State is not child of this state"));
+            }
+
+            CurrentChild = state;
+        }
+
+        #region Hooks
         /// <summary>
         /// Hook method.
         /// You may override it to perform some actions at the begining of the <see cref="EnterState"/> before all meters will be reset.
@@ -124,5 +153,6 @@ namespace MadeYellow.FSM
         /// You may override it to perform some actions at the begining of the <see cref="ExitState"/>.
         /// </summary>
         protected virtual void StateExitingHook() { }
+        #endregion
     }
 }
