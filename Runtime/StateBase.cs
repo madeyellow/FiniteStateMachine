@@ -52,9 +52,11 @@ namespace MadeYellow.FSM
                 return;
             }
 
-            ExecutionDuration += deltaTime;
+            
 
             ExecuteHandler(deltaTime);
+
+            ExecutionDuration += deltaTime;
         }
 
         /// <summary>
