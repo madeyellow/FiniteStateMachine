@@ -4,6 +4,8 @@ namespace MadeYellow.FSM
 {
     public interface IState
     {
+        bool IsExecuting { get; }
+
         IState Parent { get; }
 
         IState CurrentChild { get; }
