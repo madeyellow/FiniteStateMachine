@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Linq;
 using UnityEngine.Events;
 
 namespace MadeYellow.FSM
@@ -7,6 +9,16 @@ namespace MadeYellow.FSM
     /// </summary>
     public abstract class StateBase
     {
+        /// <summary>
+        /// Parent state of this state
+        /// </summary>
+        public readonly StateBase Parent;
+
+        /// <summary>
+        /// Sub-states of this state
+        /// </summary>
+        public virtual IEnumerable<StateBase> Children => Enumerable.Empty<StateBase>();
+
         /// <summary>
         /// Determines if this state is executing or not
         /// </summary>
@@ -29,8 +41,10 @@ namespace MadeYellow.FSM
         public readonly UnityEvent OnExitedState;
         #endregion
 
-        public StateBase()
+        public StateBase(StateBase parent)
         {
+            Parent = parent;
+
             OnEnteredState = new UnityEvent();
             OnExitedState = new UnityEvent();
         }
@@ -39,7 +53,14 @@ namespace MadeYellow.FSM
         /// Hook method.
         /// You may override it to check if this state should transit to another state
         /// </summary>
-        public virtual void CheckTransitions() { }
+        public virtual void CheckTransitions()
+        {
+            // If this state has parent - default behaviour is to use it's CheckTransitions
+            if (Parent != null)
+            {
+                Parent.CheckTransitions();
+            }    
+        }
 
         /// <summary>
         /// Exeution of the state's logic
@@ -51,8 +72,6 @@ namespace MadeYellow.FSM
             {
                 return;
             }
-
-            
 
             ExecuteHandler(deltaTime);
 
