@@ -8,24 +8,24 @@ namespace MadeYellow.FSM
     /// <summary>
     /// Abstract state of <see cref="FiniteStateMachineBase"/>
     /// </summary>
-    public abstract class StateBase
+    public abstract class StateBase<TSubState> where TSubState : StateBase
     {
         /// <summary>
         /// Parent state of this state
         /// </summary>
-        public readonly StateBase Parent;
+        public readonly TSubState Parent;
 
         public bool HasParent => Parent != null;
 
         /// <summary>
         /// Default sub-state to pick as the current
         /// </summary>
-        public virtual StateBase DefaultChild { get; }
+        public virtual TSubState DefaultChild { get; }
 
         /// <summary>
         /// Determines the sub-state to auto transition to
         /// </summary>
-        public StateBase CurrentChild { get; private set; }
+        public TSubState CurrentChild { get; private set; }
 
         public bool HasChildState => CurrentChild != null;
 
@@ -51,7 +51,7 @@ namespace MadeYellow.FSM
         public readonly UnityEvent OnExitedState;
         #endregion
 
-        public StateBase(StateBase parent = null)
+        public StateBase(TSubState parent = null)
         {
             Parent = parent;
 
@@ -124,7 +124,7 @@ namespace MadeYellow.FSM
             OnExitedState.Invoke();
         }
 
-        public void ChangeCurrentChild(StateBase state)
+        public void ChangeCurrentChild(TSubState state)
         {
             if (state is null)
             {

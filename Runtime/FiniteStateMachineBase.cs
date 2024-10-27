@@ -11,8 +11,8 @@ namespace MadeYellow.FSM
         [SerializeField]
         private FiniteStateMachineConfig _config;
 
-        public TState CurrentState { get; private set; }
-        public TState PreviousState { get; private set; }
+        public TState<TState> CurrentState { get; private set; }
+        public TState<TState> PreviousState { get; private set; }
 
         #region Events
         /// <summary>
@@ -105,7 +105,10 @@ namespace MadeYellow.FSM
         /// </summary>
         protected virtual void AfterStateChangedHook()
         {
-
+            if (CurrentState.HasChildState)
+            {
+                ChangeState(CurrentState.CurrentChild);
+            }
         }
         #endregion
     }
