@@ -15,6 +15,8 @@ namespace MadeYellow.FSM
         /// </summary>
         public readonly IState Parent;
 
+        IState IState.Parent => Parent;
+
         public bool HasParent => Parent != null;
 
         /// <summary>
