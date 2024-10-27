@@ -133,7 +133,7 @@ namespace MadeYellow.FSM
 
             if (state.Parent != this)
             {
-                throw new ArgumentException(nameof("State is not child of this state"));
+                throw new ArgumentException("State is not child of this state");
             }
 
             CurrentChild = state;
