@@ -11,8 +11,8 @@ namespace MadeYellow.FSM
         [SerializeField]
         private FiniteStateMachineConfig _config;
 
-        public TState CurrentState { get; private set; }
-        public TState PreviousState { get; private set; }
+        public IState CurrentState { get; private set; }
+        public IState PreviousState { get; private set; }
 
         #region Events
         /// <summary>
