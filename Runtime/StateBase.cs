@@ -51,7 +51,7 @@ namespace MadeYellow.FSM
         public readonly UnityEvent OnExitedState;
         #endregion
 
-        public StateBase(StateBase parent)
+        public StateBase(StateBase parent = null)
         {
             Parent = parent;
 
