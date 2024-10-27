@@ -6,7 +6,7 @@ namespace MadeYellow.FSM
     /// <summary>
     /// Abstract finite state machine (FSM) with basic state management.
     /// </summary>
-    public abstract class FiniteStateMachineBase<TState> where TState : StateBase, IState
+    public abstract class FiniteStateMachineBase<TState> where TState : StateBase
     {
         [SerializeField]
         private FiniteStateMachineConfig _config;
