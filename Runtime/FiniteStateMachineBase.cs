@@ -66,11 +66,7 @@ namespace MadeYellow.FSM
                 OnCurrentStateChanged.Invoke();
             }
 
-            // Auto-transition to sub-state
-            if (CurrentState.HasChildState)
-            {
-                ChangeState(CurrentState.CurrentChild);
-            }
+            AfterStateChangedHook();
         }
 
         /// <summary>
@@ -102,5 +98,15 @@ namespace MadeYellow.FSM
             /// </summary>
             public bool TriggerCurrentStateChangedWhenEnteringSameState = false;
         }
+
+        #region Hooks
+        /// <summary>
+        /// Hook that allows perform some action right after State Machine chnaged its state
+        /// </summary>
+        protected virtual void AfterStateChangedHook()
+        {
+
+        }
+        #endregion
     }
 }
